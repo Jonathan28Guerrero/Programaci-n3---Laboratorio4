@@ -8,20 +8,11 @@ import java.util.ArrayList;
 public class Subject {
     ArrayList Students = new ArrayList();
     ArrayList StudentAverge = new ArrayList();
-    
     public void EnterStudent(){
-        
-    }
-    public void LoginByFile(){
         
     }
     public void ScoreAverage(){
         
     }
-    public void ExportFileScores(){
-        
-    }
-    public void ExportFileAverges(){
-        
-    }
+
 }
