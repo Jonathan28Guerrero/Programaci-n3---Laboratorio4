@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package laboratorio.pkg4;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import static laboratorio.pkg4.SubjectParameters.TableStudents;
+import static laboratorio.pkg4.SubjectParameters.Check;
 
 /**
  *
@@ -16,6 +20,21 @@ public class Interface extends javax.swing.JFrame {
      */
     public Interface() {
         initComponents();
+        if(Check){
+            ArrayList Aux = (ArrayList) TableStudents.get(0);
+            int Columns = Aux.size();
+            int Rows = TableStudents.size();
+            DefaultTableModel Model = new DefaultTableModel();
+            Model.setColumnCount(Columns);
+            Model.setRowCount(Rows);
+            ScoresTable.setModel(Model);
+            for(int i=0; i<Rows; i++){
+                ArrayList Row = (ArrayList) TableStudents.get(i);
+                for(int j=0; j<Columns; j++){
+                    ScoresTable.setValueAt(Row, i, j);
+                }
+            }
+        }
     }
 
     /**
@@ -31,14 +50,14 @@ public class Interface extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jMenu1 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ScoresTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        FinalTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -68,7 +87,7 @@ public class Interface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ScoresTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,7 +98,7 @@ public class Interface extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ScoresTable);
 
         jLabel1.setText("Cantidad de estudiantes:");
 
@@ -91,7 +110,7 @@ public class Interface extends javax.swing.JFrame {
 
         jButton1.setText("Agregar Estudiante");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        FinalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -102,7 +121,7 @@ public class Interface extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(FinalTable);
 
         jLabel5.setText("Nombre del estudiante:");
 
@@ -272,6 +291,8 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable FinalTable;
+    private javax.swing.JTable ScoresTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -291,9 +312,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

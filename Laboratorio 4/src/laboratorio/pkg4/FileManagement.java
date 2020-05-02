@@ -15,9 +15,11 @@ import java.util.Scanner;
  * @author User
  */
 public class FileManagement {
-    public ArrayList LoginByFile(File FileStudents) throws FileNotFoundException{
+    public ArrayList LoginByFile(String Path) throws FileNotFoundException{
+        System.out.println(Path);
+        File FileStudents = new File(Path);
         ArrayList TableStudents = new ArrayList();
-        try(Scanner ScanFile = new Scanner(FileStudents);){
+        try(Scanner ScanFile = new Scanner(FileStudents)){
             while (ScanFile.hasNextLine()){
                 ArrayList Values = SplitColumns(ScanFile.nextLine());
                 TableStudents.add(Values);
@@ -27,9 +29,9 @@ public class FileManagement {
     }
     public ArrayList SplitColumns(String Row){
         ArrayList Columns = new ArrayList();
-        try(Scanner RowScanner = new Scanner(Row);){
+        try(Scanner RowScanner = new Scanner(Row)){
             RowScanner.useDelimiter(";");
-                        while(RowScanner.hasNext()) {
+                while(RowScanner.hasNext()) {
                 Columns.add(RowScanner.next());
             }
         }
