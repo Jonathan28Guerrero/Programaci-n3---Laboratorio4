@@ -7,6 +7,7 @@ package laboratorio.pkg4;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -19,7 +20,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class SubjectParameters extends javax.swing.JFrame {
     File FileSelected;
-    static FileManagement TableStudents;
+    static ArrayList TableStudents;
+    FileManagement Students;
+    static boolean Check=false;
     /**
      * Creates new form SubjectParameters
      */
@@ -159,16 +162,17 @@ public class SubjectParameters extends javax.swing.JFrame {
 
     private void SelectFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectFileButtonActionPerformed
         JFileChooser SelectFile = new JFileChooser();
-        SelectFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter Filter = new FileNameExtensionFilter("Archvos de texto", "csv");
         SelectFile.setFileFilter(Filter);
         int Result = SelectFile.showOpenDialog(this);
         FileSelected = SelectFile.getSelectedFile();
+        System.out.println(FileSelected.getPath());
         try {
-            TableStudents.LoginByFile(FileSelected);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SubjectParameters.class.getName()).log(Level.SEVERE, null, ex);
+            TableStudents = Students.LoginByFile(FileSelected.getPath());
+            Check = true;
+        } catch (FileNotFoundException e) {
         }
+
         if((FileSelected==null)||(FileSelected.getName().equals(""))){
             JOptionPane.showMessageDialog(this,"Nombre de archivo invalido");
         }
