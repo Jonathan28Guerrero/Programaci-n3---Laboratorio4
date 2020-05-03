@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package laboratorio.pkg4;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -18,6 +13,7 @@ import static laboratorio.pkg4.SubjectParameters.NumberStudents;
 public final class Interface extends javax.swing.JFrame {
     
     Subject Students = new Subject();
+    int Counter = 0;
 
     /**
      * Creates new form Interface
@@ -39,7 +35,6 @@ public final class Interface extends javax.swing.JFrame {
             
             ScoresTable.setModel(new DefaultTableModel(NumberStudents, NumberNotes+2));
             ScoresTable.setEnabled(false);
-
             FinalTable.setModel(new DefaultTableModel(NumberStudents, 4));
             FinalTable.setEnabled(false);
         
@@ -90,7 +85,6 @@ public final class Interface extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -168,12 +162,6 @@ public final class Interface extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
         jMenu2.setText("Archivo");
 
         jMenu4.setText("Guardar");
@@ -245,10 +233,6 @@ public final class Interface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,8 +261,7 @@ public final class Interface extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -297,21 +280,25 @@ public final class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void AddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStudentActionPerformed
+        if(Counter==NumberStudents)
+            JOptionPane.showMessageDialog(this,"Ya ha completado el total de estudiantes");
+        else{
             String Name=JOptionPane.showInputDialog("Ingrese el nombre del estudiante :" );
             String Document=JOptionPane.showInputDialog("Ingrese documento :");
             String[] Notes = new String[NumberNotes];       
             for (int i = 0;i<NumberNotes;i++) 
                 Notes[i] = JOptionPane.showInputDialog("Ingrese la nota "+(i+1)+" :");
-             Students.EnterStudent(Name, Document, Notes);
-             ArrayList Columns = (ArrayList) Students.Students.get(0);
-             SetToTable(Students.Students.size(), Columns.size());
+            if((Name!=null) && (Document!=null) && (Notes!=null)){
+                Students.EnterStudent(Name, Document, Notes);
+                ArrayList Columns = (ArrayList) Students.Students.get(0);
+                SetToTable(Students.Students.size(), Columns.size());
+                Counter++;
+            }
+        }
+
               
         
     }//GEN-LAST:event_AddStudentActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,6 +359,5 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
