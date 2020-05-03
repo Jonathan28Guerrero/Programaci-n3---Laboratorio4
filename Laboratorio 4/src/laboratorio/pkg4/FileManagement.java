@@ -9,6 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -35,10 +39,22 @@ public class FileManagement {
         }
         return Columns;
     }
-    public void ExportFileScores(){
-        
-    }
-    public void ExportFileAverges(){
-        
+    public void ExportFile(ArrayList Students) throws IOException{
+        JFileChooser SelectFile = new JFileChooser();
+        int Result = SelectFile.showOpenDialog(null);
+        File FileSelected = SelectFile.getSelectedFile();
+        try (FileWriter FW = new FileWriter(FileSelected.getPath()+".csv")) {
+            for(int i=0; i<Students.size(); i++){
+                ArrayList Row = (ArrayList) Students.get(i);
+                for(int j=0; j<Row.size(); j++){
+                    FW.append(Row.get(j)+"");
+                    if(j!=(Row.size()-1))
+                        FW.append(";");
+                }
+                FW.append("\n");
+            }
+            FW.flush();
+            FW.close();
+        }
     }
 }

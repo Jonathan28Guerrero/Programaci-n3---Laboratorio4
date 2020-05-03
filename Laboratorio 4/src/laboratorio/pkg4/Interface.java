@@ -1,5 +1,8 @@
 package laboratorio.pkg4;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static laboratorio.pkg4.SubjectParameters.TableStudents;
@@ -14,6 +17,7 @@ public final class Interface extends javax.swing.JFrame {
     
     Subject Students = new Subject();
     int Counter = 0;
+    FileManagement ExportFile = new FileManagement();
 
     /**
      * Creates new form Interface
@@ -55,11 +59,6 @@ public final class Interface extends javax.swing.JFrame {
         ScoresTable.setEnabled(false);
         FinalTable.setEnabled(false);
     }
-    
-    
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +89,7 @@ public final class Interface extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        Nuevo = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
@@ -184,6 +184,14 @@ public final class Interface extends javax.swing.JFrame {
 
         jMenu2.add(jMenu4);
 
+        Nuevo.setText("Nuevo");
+        Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(Nuevo);
+
         jMenuItem3.setText("Cerrar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,11 +280,19 @@ public final class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        try {
+            ExportFile.ExportFile(Students.Students);
+        } catch (IOException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        try {
+            ExportFile.ExportFile(Students.StudentAverage);
+        } catch (IOException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void AddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStudentActionPerformed
@@ -299,6 +315,41 @@ public final class Interface extends javax.swing.JFrame {
               
         
     }//GEN-LAST:event_AddStudentActionPerformed
+
+    private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
+        if(JOptionPane.showConfirmDialog(this, "¿Desea guardar el archivo actual?")==0){
+            String[] Options = {"Tabla Principal","Tabla Promedios", "Amabas tablas"};
+            int Value = JOptionPane.showOptionDialog(this, "¿Qué tabla desea guardar?", "Guardar", WIDTH, HEIGHT, null,
+                    Options, Options[0]);
+            switch (Value) {
+                case 0:
+                    try {
+                        ExportFile.ExportFile(Students.Students);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 1:
+                    try {
+                        ExportFile.ExportFile(Students.StudentAverage);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }   break;
+                case 2:
+                    try {
+                        ExportFile.ExportFile(Students.Students);
+                        ExportFile.ExportFile(Students.StudentAverage);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                    }   break;
+                default:
+                    break;
+            }
+        }
+        SubjectParameters OpenInterface = new SubjectParameters();
+        OpenInterface.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_NuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,6 +389,7 @@ public final class Interface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStudent;
     private javax.swing.JTable FinalTable;
+    private javax.swing.JMenuItem Nuevo;
     private javax.swing.JLabel NumNotes;
     private javax.swing.JLabel NumStudents;
     private javax.swing.JTable ScoresTable;
