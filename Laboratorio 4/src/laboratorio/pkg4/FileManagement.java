@@ -15,9 +15,7 @@ import java.util.Scanner;
  * @author User
  */
 public class FileManagement {
-    public ArrayList LoginByFile(String Path) throws FileNotFoundException{
-        System.out.println(Path);
-        File FileStudents = new File(Path);
+    public ArrayList LoginByFile(File FileStudents) throws FileNotFoundException{
         ArrayList TableStudents = new ArrayList();
         try(Scanner ScanFile = new Scanner(FileStudents)){
             while (ScanFile.hasNextLine()){

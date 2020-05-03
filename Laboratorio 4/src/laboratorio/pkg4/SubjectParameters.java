@@ -30,6 +30,11 @@ public class SubjectParameters extends javax.swing.JFrame {
      */
     public SubjectParameters() {
         initComponents();
+        SelectFileButton.setVisible(false);
+        NumberStudentsField.setVisible(false);
+        NumberNotesField.setVisible(false);
+        Label1.setVisible(false);
+        Label2.setVisible(false);
     }
 
     /**
@@ -168,13 +173,12 @@ public class SubjectParameters extends javax.swing.JFrame {
         SelectFile.setFileFilter(Filter);
         int Result = SelectFile.showOpenDialog(this);
         FileSelected = SelectFile.getSelectedFile();
-        System.out.println(FileSelected.getPath());
         try {
-            TableStudents = Students.LoginByFile(FileSelected.getPath());
-            Check = true;
-        } catch (FileNotFoundException e) {
+            TableStudents = Students.LoginByFile(FileSelected);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SubjectParameters.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        Check = true;
         if((FileSelected==null)||(FileSelected.getName().equals(""))){
             JOptionPane.showMessageDialog(this,"Nombre de archivo invalido");
         }

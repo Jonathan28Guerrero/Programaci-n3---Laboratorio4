@@ -15,7 +15,7 @@ import static laboratorio.pkg4.SubjectParameters.NumberStudents;
  *
  * @author User
  */
-public class Interface extends javax.swing.JFrame {
+public final class Interface extends javax.swing.JFrame {
     
     Subject Students = new Subject();
 
@@ -29,21 +29,13 @@ public class Interface extends javax.swing.JFrame {
             ArrayList Aux = (ArrayList) Students.Students.get(0);
             int Columns = Aux.size();
             int Rows = Students.Students.size();
-            DefaultTableModel Model = new DefaultTableModel();
-            Model.setColumnCount(Columns);
-            Model.setRowCount(Rows);
-            ScoresTable.setModel(Model);
-            for(int i=0; i<Rows; i++){
-                ArrayList Row = (ArrayList) Students.Students.get(i);
-                for(int j=0; j<Columns; j++){
-                    ScoresTable.setValueAt(Row, i, j);
-                }
-            }
+            ScoresTable.setModel(new DefaultTableModel(Rows, Columns));
+            FinalTable.setModel(new DefaultTableModel(Rows, 4));
+            Students.ScoreAverage();
+            SetToTable(Rows,Columns);
+            AddStudent.setEnabled(false);
         }
         else{
-            
-            NumNotes.setText(""+NumberNotes);
-            NumStudents.setText(""+NumberStudents);
             
             ScoresTable.setModel(new DefaultTableModel(NumberStudents, NumberNotes+2));
             ScoresTable.setEnabled(false);
@@ -52,6 +44,20 @@ public class Interface extends javax.swing.JFrame {
             FinalTable.setEnabled(false);
         
         }
+    }
+    public void SetToTable(int Rows, int Columns){
+        NumStudents.setText(String.valueOf(Rows));
+        NumNotes.setText(String.valueOf(Columns-2));
+        for(int i=0; i<Rows; i++){
+            ArrayList Row1 = (ArrayList) Students.Students.get(i);
+            ArrayList Row2 = (ArrayList) Students.StudentAverage.get(i);
+            for(int j=0; j<Columns; j++)
+                ScoresTable.setValueAt(Row1.get(j), i, j);
+            for(int a=0; a<4; a++)
+                FinalTable.setValueAt(Row2.get(a), i, a);
+            }
+        ScoresTable.setEnabled(false);
+        FinalTable.setEnabled(false);
     }
     
     
@@ -74,7 +80,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         NumStudents = new javax.swing.JLabel();
         NumNotes = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        AddStudent = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         FinalTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -123,10 +129,10 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel2.setText("Notas por estudiante:");
 
-        jButton1.setText("Agregar Estudiante");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AddStudent.setText("Agregar Estudiante");
+        AddStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AddStudentActionPerformed(evt);
             }
         });
 
@@ -143,7 +149,7 @@ public class Interface extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(FinalTable);
 
-        jLabel5.setText("Nombre del estudiante:");
+        jLabel5.setText("Código del estudiante:");
 
         jButton2.setText("Mostrar Grafico");
 
@@ -210,9 +216,7 @@ public class Interface extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
@@ -222,7 +226,12 @@ public class Interface extends javax.swing.JFrame {
                                     .addComponent(NumStudents, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                                     .addComponent(NumNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(85, 85, 85)
-                                .addComponent(jButton1)))
+                                .addComponent(AddStudent))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
@@ -251,7 +260,7 @@ public class Interface extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(NumStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)
-                                .addComponent(jButton1)))
+                                .addComponent(AddStudent)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -274,19 +283,16 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here: 
-        
+    private void AddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStudentActionPerformed
             int numero=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nombre del estudiante :" ));
             int numero1=Integer.parseInt(JOptionPane.showInputDialog("Ingrese documento :"));
             for (int i = 0;i<NumberNotes;i++){
              int numero2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nota "+(i+1)+" :"));
-            Students.EnterStudent(numero, numero1, numero2);
             }
             
               //Students.EnterStudent(numero, numero1, numero2);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_AddStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,11 +330,11 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddStudent;
     private javax.swing.JTable FinalTable;
     private javax.swing.JLabel NumNotes;
     private javax.swing.JLabel NumStudents;
     private javax.swing.JTable ScoresTable;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
