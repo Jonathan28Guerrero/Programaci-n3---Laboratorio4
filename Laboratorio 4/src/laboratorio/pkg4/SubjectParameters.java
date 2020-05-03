@@ -21,8 +21,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class SubjectParameters extends javax.swing.JFrame {
     File FileSelected;
     static ArrayList TableStudents;
-    FileManagement Students;
+    FileManagement Students = new FileManagement();
     static boolean Check=false;
+    static int NumberStudents;
+    static int NumberNotes;
     /**
      * Creates new form SubjectParameters
      */
@@ -203,10 +205,13 @@ public class SubjectParameters extends javax.swing.JFrame {
         if((NumberStudentsField.getText().equals(""))||(NumberNotesField.getText().equals("")))
             JOptionPane.showMessageDialog(this,"Rellene todas las casillas");
         else{
+            NumberNotes = Integer.parseInt(NumberNotesField.getText());
+            NumberStudents = Integer.parseInt(NumberStudentsField.getText());
             Interface OpenInterface = new Interface();
             OpenInterface.setVisible(true);
             this.setVisible(false);
         }
+ 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed

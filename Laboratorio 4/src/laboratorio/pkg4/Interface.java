@@ -5,15 +5,19 @@
  */
 package laboratorio.pkg4;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static laboratorio.pkg4.SubjectParameters.TableStudents;
 import static laboratorio.pkg4.SubjectParameters.Check;
-
+import static laboratorio.pkg4.SubjectParameters.NumberNotes;
+import static laboratorio.pkg4.SubjectParameters.NumberStudents;
 /**
  *
  * @author User
  */
 public class Interface extends javax.swing.JFrame {
+    
+    Subject Students = new Subject();
 
     /**
      * Creates new form Interface
@@ -21,21 +25,36 @@ public class Interface extends javax.swing.JFrame {
     public Interface() {
         initComponents();
         if(Check){
-            ArrayList Aux = (ArrayList) TableStudents.get(0);
+            Students.Students = TableStudents;
+            ArrayList Aux = (ArrayList) Students.Students.get(0);
             int Columns = Aux.size();
-            int Rows = TableStudents.size();
+            int Rows = Students.Students.size();
             DefaultTableModel Model = new DefaultTableModel();
             Model.setColumnCount(Columns);
             Model.setRowCount(Rows);
             ScoresTable.setModel(Model);
             for(int i=0; i<Rows; i++){
-                ArrayList Row = (ArrayList) TableStudents.get(i);
+                ArrayList Row = (ArrayList) Students.Students.get(i);
                 for(int j=0; j<Columns; j++){
                     ScoresTable.setValueAt(Row, i, j);
                 }
             }
         }
+        else{
+            
+            NumNotes.setText(""+NumberNotes);
+            NumStudents.setText(""+NumberStudents);
+            
+            ScoresTable.setModel(new DefaultTableModel(NumberStudents, NumberNotes+2));
+            ScoresTable.setEnabled(false);
+
+            FinalTable.setModel(new DefaultTableModel(NumberStudents, 4));
+            FinalTable.setEnabled(false);
+        
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,8 +72,8 @@ public class Interface extends javax.swing.JFrame {
         ScoresTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        NumStudents = new javax.swing.JLabel();
+        NumNotes = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         FinalTable = new javax.swing.JTable();
@@ -104,11 +123,12 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel2.setText("Notas por estudiante:");
 
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
-
         jButton1.setText("Agregar Estudiante");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         FinalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,7 +155,7 @@ public class Interface extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 292, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Archivo");
@@ -198,22 +218,21 @@ public class Interface extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(NumStudents, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                                    .addComponent(NumNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(85, 85, 85)
                                 .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,23 +240,23 @@ public class Interface extends javax.swing.JFrame {
                         .addGap(16, 16, 16)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                .addComponent(jLabel1)
                                 .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel4)))
+                                    .addComponent(NumNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
+                                .addComponent(NumStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
                                 .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -254,6 +273,20 @@ public class Interface extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here: 
+        
+            int numero=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nombre del estudiante :" ));
+            int numero1=Integer.parseInt(JOptionPane.showInputDialog("Ingrese documento :"));
+            for (int i = 0;i<NumberNotes;i++){
+             int numero2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nota "+(i+1)+" :"));
+            Students.EnterStudent(numero, numero1, numero2);
+            }
+            
+              //Students.EnterStudent(numero, numero1, numero2);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,13 +325,13 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable FinalTable;
+    private javax.swing.JLabel NumNotes;
+    private javax.swing.JLabel NumStudents;
     private javax.swing.JTable ScoresTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
