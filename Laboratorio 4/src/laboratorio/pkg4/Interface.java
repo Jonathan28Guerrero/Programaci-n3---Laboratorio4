@@ -1,14 +1,20 @@
 package laboratorio.pkg4;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static laboratorio.pkg4.SubjectParameters.TableStudents;
 import static laboratorio.pkg4.SubjectParameters.Check;
 import static laboratorio.pkg4.SubjectParameters.NumberNotes;
 import static laboratorio.pkg4.SubjectParameters.NumberStudents;
+import org.jfree.chart.ChartPanel;
+
+
+
 /**
  *
  * @author User
@@ -18,6 +24,7 @@ public final class Interface extends javax.swing.JFrame {
     Subject Students = new Subject();
     int Counter = 0;
     FileManagement ExportFile = new FileManagement();
+    Graphic GenerateGraphic = new Graphic();
 
     /**
      * Creates new form Interface
@@ -81,9 +88,8 @@ public final class Interface extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         FinalTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        CodeStudent = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -109,6 +115,10 @@ public final class Interface extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1000, 520));
+        setMinimumSize(new java.awt.Dimension(1000, 520));
+        setPreferredSize(new java.awt.Dimension(1000, 520));
+        getContentPane().setLayout(null);
 
         ScoresTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,9 +133,21 @@ public final class Interface extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(ScoresTable);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(20, 80, 380, 170);
+
         jLabel1.setText("Cantidad de estudiantes:");
+        jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(15, 15, 130, 20);
 
         jLabel2.setText("Notas por estudiante:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(15, 40, 130, 20);
+        getContentPane().add(NumStudents);
+        NumStudents.setBounds(150, 15, 50, 20);
+        getContentPane().add(NumNotes);
+        NumNotes.setBounds(150, 40, 50, 20);
 
         AddStudent.setText("Agregar Estudiante");
         AddStudent.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +155,8 @@ public final class Interface extends javax.swing.JFrame {
                 AddStudentActionPerformed(evt);
             }
         });
+        getContentPane().add(AddStudent);
+        AddStudent.setBounds(205, 40, 170, 25);
 
         FinalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,20 +171,23 @@ public final class Interface extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(FinalTable);
 
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(20, 270, 380, 180);
+
         jLabel5.setText("Código del estudiante:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(450, 20, 140, 20);
+        getContentPane().add(CodeStudent);
+        CodeStudent.setBounds(590, 20, 100, 25);
 
         jButton2.setText("Mostrar Grafico");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(720, 20, 130, 25);
 
         jMenu2.setText("Archivo");
 
@@ -206,71 +233,6 @@ public final class Interface extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(432, 432, 432)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(NumStudents, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                                    .addComponent(NumNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(85, 85, 85)
-                                .addComponent(AddStudent))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(16, 16, 16)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(NumNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(NumStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(AddStudent)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -351,6 +313,22 @@ public final class Interface extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_NuevoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int position = 0, n =0;
+        for(int i=0; i<Students.Students.size(); i++){
+            ArrayList Aux =  (ArrayList) Students.Students.get(i);
+            position = Aux.indexOf(CodeStudent);
+            n=i;
+        }
+        ArrayList List = (ArrayList)Students.Students.get(n);
+        ChartPanel chartPanel=new ChartPanel(GenerateGraphic.prueba(List));
+        
+        add(chartPanel);
+        chartPanel.setBounds(450, 50, 400, 400);
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -388,6 +366,7 @@ public final class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStudent;
+    private javax.swing.JTextField CodeStudent;
     private javax.swing.JTable FinalTable;
     private javax.swing.JMenuItem Nuevo;
     private javax.swing.JLabel NumNotes;
@@ -405,11 +384,9 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
