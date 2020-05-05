@@ -41,6 +41,9 @@ public final class Interface extends javax.swing.JFrame {
             Students.ScoreAverage();
             SetToTable(Rows,Columns);
             AddStudent.setEnabled(false);
+            String[] Mortality = Students.Mortality();
+            Aproved.setText(Mortality[0]);
+            Reproved.setText(Mortality[1]);
         }
         else{
             
@@ -90,6 +93,10 @@ public final class Interface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         CodeStudent = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Aproved = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Reproved = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -115,9 +122,9 @@ public final class Interface extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1000, 520));
-        setMinimumSize(new java.awt.Dimension(1000, 520));
-        setPreferredSize(new java.awt.Dimension(1000, 520));
+        setMaximumSize(new java.awt.Dimension(1000, 580));
+        setMinimumSize(new java.awt.Dimension(1000, 580));
+        setPreferredSize(new java.awt.Dimension(1000, 580));
         getContentPane().setLayout(null);
 
         ScoresTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,6 +195,18 @@ public final class Interface extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2);
         jButton2.setBounds(720, 20, 130, 25);
+
+        jLabel3.setText("Aprobados:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(70, 470, 80, 20);
+        getContentPane().add(Aproved);
+        Aproved.setBounds(150, 470, 60, 20);
+
+        jLabel6.setText("Reprobados:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(230, 470, 80, 20);
+        getContentPane().add(Reproved);
+        Reproved.setBounds(330, 470, 60, 20);
 
         jMenu2.setText("Archivo");
 
@@ -271,6 +290,9 @@ public final class Interface extends javax.swing.JFrame {
                 ArrayList Columns = (ArrayList) Students.Students.get(0);
                 SetToTable(Students.Students.size(), Columns.size());
                 Counter++;
+                String[] Mortality = Students.Mortality();
+                Aproved.setText(Mortality[0]);
+                Reproved.setText(Mortality[1]);
             }
         }
 
@@ -312,17 +334,21 @@ public final class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int position = 0, n =0;
+        int n = -1;
         for(int i=0; i<Students.Students.size(); i++){
             ArrayList Aux =  (ArrayList) Students.Students.get(i);
-            position = Aux.indexOf(CodeStudent);
-            n=i;
+            if(Aux.get(1).equals(CodeStudent.getText()))
+                n=i;
         }
-        ArrayList List = (ArrayList)Students.Students.get(n);
-        ChartPanel chartPanel=new ChartPanel(GenerateGraphic.MakeGraphic(List));
-        
-        add(chartPanel);
-        chartPanel.setBounds(450, 50, 400, 400);
+        if(n==-1)
+            JOptionPane.showMessageDialog(this, "Código no encontrado, ingrese otro");
+        else{
+            ArrayList List = (ArrayList)Students.Students.get(n);
+            ChartPanel chartPanel=new ChartPanel(GenerateGraphic.MakeGraphic(List));
+            add(chartPanel);
+            chartPanel.setBounds(470, 80, 450, 400);
+        }
+        CodeStudent.setText("");
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -364,16 +390,20 @@ public final class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStudent;
+    private javax.swing.JLabel Aproved;
     private javax.swing.JTextField CodeStudent;
     private javax.swing.JTable FinalTable;
     private javax.swing.JMenuItem Nuevo;
     private javax.swing.JLabel NumNotes;
     private javax.swing.JLabel NumStudents;
+    private javax.swing.JLabel Reproved;
     private javax.swing.JTable ScoresTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

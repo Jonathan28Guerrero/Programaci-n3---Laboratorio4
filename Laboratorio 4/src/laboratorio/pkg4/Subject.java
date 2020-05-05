@@ -1,7 +1,6 @@
 package laboratorio.pkg4;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import static laboratorio.pkg4.SubjectParameters.NumberNotes;
 /**
  *
@@ -10,6 +9,8 @@ import static laboratorio.pkg4.SubjectParameters.NumberNotes;
 public class Subject {
     ArrayList Students = new ArrayList();
     ArrayList StudentAverage = new ArrayList();
+    int Aproved = 0;
+    int Reproved = 0;
     
     public void EnterStudent( String Name,String Document,String[] Notes){
         ArrayList Aux = new ArrayList();
@@ -26,10 +27,14 @@ public class Subject {
                 Sum = Sum + Float.valueOf(String.valueOf(Aux.get(j)));
             Sum = Sum/(Aux.size()-2);
             Aux2.add(Sum);
-            if(Sum>=3.0)
+            if(Sum>=3.0){
                 Aux2.add("Aprobado");
-            else
+                Aproved++;
+            }
+            else{
                 Aux2.add("Reprobado");
+                Reproved++;
+            }
             StudentAverage.add(Aux2);
     }
     public void ScoreAverage(){
@@ -43,12 +48,23 @@ public class Subject {
                 Sum = Sum + Float.valueOf(String.valueOf(Row.get(j)));
             Sum = Sum/(Row.size()-2);
             Aux.add(Sum);
-            if(Sum>=3.0)
+            if(Sum>=3.0){
                 Aux.add("Aprobado");
-            else
+                Aproved++;
+            }
+            else{
                 Aux.add("Reprobado");
+                Reproved++;
+            }
             StudentAverage.add(Aux);
         }
+    }
+    public String[] Mortality(){
+      float n = Students.size();
+      float Aproved2 = ((n-Reproved)/n)*100;
+      float Reproved2 = ((n-Aproved)/n)*100;
+      String[] Aux ={Aproved2+"%", Reproved2+"%"};
+      return Aux;
     }
 
    

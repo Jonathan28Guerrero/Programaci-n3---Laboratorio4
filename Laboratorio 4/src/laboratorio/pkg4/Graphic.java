@@ -26,18 +26,16 @@ public class Graphic {
     
     
     
-   public JFreeChart MakeGraphic( ArrayList Students){
-       
+   public JFreeChart MakeGraphic(ArrayList Students){
        XYSeriesCollection dataset = new XYSeriesCollection();
-       XYSeries maindataset = new XYSeries("XY Grafico");
+       XYSeries maindataset = new XYSeries("Notas");
         for(int i=2; i< Students.size();i++){ 
             maindataset.add(i-1,Float.valueOf((String)Students.get(i)));
         }
         dataset.addSeries(maindataset);
-        JFreeChart chart= ChartFactory.createXYLineChart((String)Students.get(0), "Nota", "Calificacion", dataset,
+        JFreeChart chart= ChartFactory.createXYLineChart((String)Students.get(0), "Enumeración", "Calificacion", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
         return chart;
-
 }
     
     
