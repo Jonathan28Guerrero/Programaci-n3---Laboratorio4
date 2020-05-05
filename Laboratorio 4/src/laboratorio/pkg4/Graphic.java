@@ -26,7 +26,7 @@ public class Graphic {
     
     
     
-   public JFreeChart prueba( ArrayList Students){
+   public JFreeChart MakeGraphic( ArrayList Students){
        
        XYSeriesCollection dataset = new XYSeriesCollection();
        XYSeries maindataset = new XYSeries("XY Grafico");
