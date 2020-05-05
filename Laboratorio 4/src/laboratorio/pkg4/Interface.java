@@ -274,8 +274,6 @@ public final class Interface extends javax.swing.JFrame {
             }
         }
 
-              
-        
     }//GEN-LAST:event_AddStudentActionPerformed
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
@@ -321,7 +319,7 @@ public final class Interface extends javax.swing.JFrame {
             n=i;
         }
         ArrayList List = (ArrayList)Students.Students.get(n);
-        ChartPanel chartPanel=new ChartPanel(GenerateGraphic.prueba(List));
+        ChartPanel chartPanel=new ChartPanel(GenerateGraphic.MakeGraphic(List));
         
         add(chartPanel);
         chartPanel.setBounds(450, 50, 400, 400);
